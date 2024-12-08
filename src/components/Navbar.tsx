@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import { Menu, X } from 'lucide-react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Logo } from './Logo';
 
 export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const isTermsPage = window.location.pathname === '/terms';
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const scrollToSection = (id: string) => {
-    if (isTermsPage) {
-      window.location.href = `/#${id}`;
+    if (location.pathname !== '/') {
+      navigate('/', { state: { scrollTo: id } });
     } else {
       const element = document.getElementById(id);
       if (element) {
@@ -18,24 +20,11 @@ export function Navbar() {
     }
   };
 
-  const navigateHome = () => {
-    if (isTermsPage) {
-      window.location.href = '/';
-    }
-  };
-
   return (
     <nav className="bg-white shadow-sm fixed w-full top-0 z-50">
       <div className="container mx-auto px-6 max-w-6xl">
         <div className="flex items-center justify-between h-16">
-          <div 
-            className="cursor-pointer" 
-            onClick={navigateHome}
-            role="button"
-            tabIndex={0}
-          >
-            <Logo />
-          </div>
+          <Logo />
           
           {/* Mobile menu button */}
           <button

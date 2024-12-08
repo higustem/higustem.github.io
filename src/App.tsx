@@ -1,31 +1,16 @@
 import React from 'react';
-import { Navbar } from './components/Navbar';
-import { Hero } from './components/Hero';
-import { Benefits } from './components/Benefits';
-import { Features } from './components/Features';
-import { HowItWorks } from './components/HowItWorks';
-import { Footer } from './components/Footer';
+import { Routes, Route } from 'react-router-dom';
+import { MainLayout } from './layouts/MainLayout';
+import { HomePage } from './pages/Home';
 import { Terms } from './components/Terms';
 
-function App() {
-  const path = window.location.pathname;
-
-  if (path === '/terms') {
-    return <Terms />;
-  }
-
+export default function App() {
   return (
-    <div className="min-h-screen pt-16">
-      <Navbar />
-      <main>
-        <Hero />
-        <Benefits />
-        <Features />
-        <HowItWorks />
-      </main>
-      <Footer />
-    </div>
+    <MainLayout>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/terms" element={<Terms />} />
+      </Routes>
+    </MainLayout>
   );
 }
-
-export default App;
