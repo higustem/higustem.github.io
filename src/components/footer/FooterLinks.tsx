@@ -1,18 +1,24 @@
-import React from 'react';
-import { Mail, CreditCard, Shield, Users } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { Mail, CreditCard, Shield } from 'lucide-react';
 
 export function FooterLinks() {
+  const navigate = useNavigate();
+
   const links = {
     product: [
       { label: 'Virtual Cards', href: '#features' },
     ],
     company: [
-      { label: 'Terms of Service', href: '/terms' },
+      { label: 'Terms of Service', path: '/terms' },
     ],
     features: [
       { label: 'Virtual Cards', icon: CreditCard },
       { label: 'Secure Payments', icon: Shield }
     ],
+  };
+
+  const handleClick = (path: string) => {
+    navigate(path);
   };
 
   return (
@@ -35,9 +41,12 @@ export function FooterLinks() {
         <ul className="space-y-3">
           {links.company.map((link) => (
             <li key={link.label}>
-              <a href={link.href} className="text-gray-400 hover:text-blue-400 transition-colors">
+              <button
+                onClick={() => handleClick(link.path)}
+                className="text-gray-400 hover:text-blue-400 transition-colors"
+              >
                 {link.label}
-              </a>
+              </button>
             </li>
           ))}
         </ul>

@@ -1,16 +1,21 @@
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import { MainLayout } from './layouts/MainLayout';
-import { HomePage } from './pages/Home';
-import { Terms } from './components/Terms';
+import { routes } from './routes';
 
-export default function App() {
+export function App() {
   return (
     <MainLayout>
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/terms" element={<Terms />} />
+        {routes.map((route) => (
+          <Route
+            key={route.path}
+            path={route.path}
+            element={route.element}
+          />
+        ))}
       </Routes>
     </MainLayout>
   );
 }
+
+export default App;
