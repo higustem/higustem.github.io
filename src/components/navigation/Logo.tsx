@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { CreditCard } from 'lucide-react';
+import { BetaLabel } from '../common/BetaLabel';
 
 export function Logo() {
   const navigate = useNavigate();
@@ -12,10 +13,13 @@ export function Logo() {
   return (
     <button
       onClick={handleLogoClick}
-      className="flex items-center gap-2 hover:opacity-80 transition-opacity"
+      className="flex items-center gap-3 hover:opacity-80 transition-opacity"
     >
       <CreditCard className="w-8 h-8 text-blue-600" />
-      <span className="font-bold text-xl">Gustem</span>
+      <div className="flex items-center gap-2">
+        <span className="font-bold text-2xl tracking-tight">Gustem</span>
+        <BetaLabel />
+      </div>
     </button>
   );
 }
