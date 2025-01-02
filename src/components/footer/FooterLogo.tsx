@@ -5,8 +5,8 @@ export function FooterLogo() {
   return (
     <div className="flex flex-col items-center mb-12">
       <Logo />
-      <p className="mt-3 text-gray-400 text-center max-w-md">
-        Empowering businesses with secure virtual cards for seamless financial management
+      <p className="max-w-md mt-3 text-center text-gray-400">
+      Simplifying digital ad spend management with virtual cards and unified analytics
       </p>
     </div>
   );

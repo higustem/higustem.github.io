@@ -1,28 +1,66 @@
 import { useState } from 'react';
 import { Mail, Building2, User } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
 import { InputField } from './InputField';
+import { getApiUrl } from '../../config/api';
+import { useNavigate } from 'react-router-dom';
 
 export function SignUpForm() {
   const [isLoading, setIsLoading] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    company: ''
+  });
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    setIsLoading(false);
-    navigate('/request-success');
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    
+    try {
+      setIsLoading(true);
+      
+      const response = await fetch(getApiUrl('contact'), {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      });
+
+      if (!response.ok) {
+        throw new Error('Signup failed');
+      }
+
+      const data = await response.json();
+      setIsSuccess(true);
+      navigate('/request-success');
+      onSignupSuccess?.(data);
+
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
-    <div className="bg-white p-8 rounded-xl shadow-sm">
-      <h1 className="text-2xl font-bold mb-2">Request Beta Access</h1>
-      <p className="text-gray-600 mb-6">Join our exclusive beta program and be among the first to experience Gustem.</p>
+    <div className="p-8 bg-white shadow-sm rounded-xl">
+      <h1 className="mb-2 text-2xl font-bold">Request Beta Access</h1>
+      <p className="mb-6 text-gray-600">Join our exclusive beta program and be among the first to experience Gustem.</p>
       
       <form onSubmit={handleSubmit} className="space-y-4">
-        <div className="grid md:grid-cols-2 gap-4">
+        <div className="grid gap-4 md:grid-cols-2">
           <InputField
             icon={User}
             label="First name"
@@ -30,6 +68,8 @@ export function SignUpForm() {
             type="text"
             placeholder="First name"
             required
+            value={formData.firstName}
+            onChange={handleChange}
           />
           <InputField
             icon={User}
@@ -38,6 +78,8 @@ export function SignUpForm() {
             type="text"
             placeholder="Last name"
             required
+            value={formData.lastName}
+            onChange={handleChange}
           />
         </div>
         <InputField
@@ -47,6 +89,8 @@ export function SignUpForm() {
           type="email"
           placeholder="you@company.com"
           required
+          value={formData.email}
+          onChange={handleChange}
         />
         <InputField
           icon={Building2}
@@ -54,16 +98,18 @@ export function SignUpForm() {
           name="company"
           type="text"
           placeholder="Your company name"
+          value={formData.company}
+          onChange={handleChange}
         />
         <button
           type="submit"
           disabled={isLoading}
-          className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full px-4 py-2 text-white transition-colors bg-blue-600 rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {isLoading ? 'Submitting...' : 'Request Access'}
         </button>
       </form>
-      <p className="mt-4 text-sm text-gray-600 text-center">
+      <p className="mt-4 text-sm text-center text-gray-600">
         By submitting, you agree to our{' '}
         <a href="#/terms" className="text-blue-600 hover:underline">
           Terms of Service

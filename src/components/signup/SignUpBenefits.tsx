@@ -1,25 +1,25 @@
-import { Shield, Zap, CreditCard, Clock } from 'lucide-react';
+import { Shield, BarChart, CreditCard, LineChart } from 'lucide-react';
 
 const benefits = [
   {
-    icon: Shield,
-    title: 'Secure & Compliant',
-    description: 'Enterprise-grade security with SOC 2 Type II compliance'
+    icon: LineChart,
+    title: 'Unified Analytics',
+    description: 'Track all your ad spending across platforms in one dashboard'
   },
   {
-    icon: Zap,
-    title: 'Instant Setup',
-    description: 'Get started in minutes with our simple onboarding process'
+    icon: BarChart,
+    title: 'Smart Budgeting',
+    description: 'Set and manage budgets for each advertising platform'
   },
   {
     icon: CreditCard,
-    title: 'Unlimited Cards',
-    description: 'Create as many virtual cards as your business needs'
+    title: 'Virtual Cards',
+    description: 'Secure virtual cards powered by Penny Inc for each platform'
   },
   {
-    icon: Clock,
-    title: '24/7 Support',
-    description: 'Access to our dedicated support team around the clock'
+    icon: Shield,
+    title: 'Enterprise Security',
+    description: 'Bank-grade security for all your advertising transactions'
   }
 ];
 
@@ -27,7 +27,7 @@ export function SignUpBenefits() {
   return (
     <div className="space-y-8 md:pt-8">
       <div>
-        <h2 className="text-2xl font-bold mb-2">Why choose Gustem?</h2>
+        <h2 className="mb-2 text-2xl font-bold">Why choose Gustem?</h2>
         <p className="text-gray-600">
           Join thousands of businesses managing their expenses with virtual cards
         </p>
@@ -39,8 +39,8 @@ export function SignUpBenefits() {
               <benefit.icon className="w-6 h-6 text-blue-600" />
             </div>
             <div>
-              <h3 className="font-semibold mb-1">{benefit.title}</h3>
-              <p className="text-gray-600 text-sm">{benefit.description}</p>
+              <h3 className="mb-1 font-semibold">{benefit.title}</h3>
+              <p className="text-sm text-gray-600">{benefit.description}</p>
             </div>
           </div>
         ))}

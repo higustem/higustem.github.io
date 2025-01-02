@@ -6,6 +6,7 @@ export function FooterLinks() {
 
   const links = {
     product: [
+      { label: 'Spend Management', href: '#features' },
       { label: 'Virtual Cards', href: '#features' },
     ],
     company: [
@@ -13,7 +14,7 @@ export function FooterLinks() {
     ],
     features: [
       { label: 'Virtual Cards', icon: CreditCard },
-      { label: 'Secure Payments', icon: Shield }
+      { label: 'Unified Analytics', icon: Shield }
     ],
   };
 
@@ -22,13 +23,13 @@ export function FooterLinks() {
   };
 
   return (
-    <div className="grid md:grid-cols-3 gap-12 mb-12">
+    <div className="grid gap-12 mb-12 md:grid-cols-3">
       <div>
-        <h3 className="text-lg font-semibold mb-4 text-gray-100">Product</h3>
+        <h3 className="mb-4 text-lg font-semibold text-gray-100">Product</h3>
         <ul className="space-y-3">
           {links.product.map((link) => (
             <li key={link.label}>
-              <a href={link.href} className="text-gray-400 hover:text-blue-400 transition-colors">
+              <a href={link.href} className="text-gray-400 transition-colors hover:text-blue-400">
                 {link.label}
               </a>
             </li>
@@ -37,13 +38,13 @@ export function FooterLinks() {
       </div>
       
       <div>
-        <h3 className="text-lg font-semibold mb-4 text-gray-100">Company</h3>
+        <h3 className="mb-4 text-lg font-semibold text-gray-100">Company</h3>
         <ul className="space-y-3">
           {links.company.map((link) => (
             <li key={link.label}>
               <button
                 onClick={() => handleClick(link.path)}
-                className="text-gray-400 hover:text-blue-400 transition-colors"
+                className="text-gray-400 transition-colors hover:text-blue-400"
               >
                 {link.label}
               </button>
@@ -53,7 +54,7 @@ export function FooterLinks() {
       </div>
 
       <div>
-        <h3 className="text-lg font-semibold mb-4 text-gray-100">Features</h3>
+        <h3 className="mb-4 text-lg font-semibold text-gray-100">Features</h3>
         <ul className="space-y-3">
           {links.features.map((feature) => (
             <li key={feature.label} className="flex items-center gap-2 text-gray-400">

@@ -7,6 +7,8 @@ interface InputFieldProps {
   type: string;
   placeholder: string;
   required?: boolean;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export function InputField({
@@ -15,23 +17,27 @@ export function InputField({
   name,
   type,
   placeholder,
-  required
+  required,
+  value,
+  onChange
 }: InputFieldProps) {
   return (
     <div>
-      <label htmlFor={name} className="block text-sm font-medium text-gray-700 mb-1">
+      <label htmlFor={name} className="block mb-1 text-sm font-medium text-gray-700">
         {label}
       </label>
       <div className="relative">
-        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-          <Icon className="h-5 w-5 text-gray-400" />
+        <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+          <Icon className="w-5 h-5 text-gray-400" />
         </div>
         <input
           type={type}
           name={name}
           id={name}
           required={required}
-          className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+          value={value}
+          onChange={onChange}
+          className="block w-full py-2 pl-10 pr-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent"
           placeholder={placeholder}
         />
       </div>
